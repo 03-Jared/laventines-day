@@ -259,17 +259,17 @@
                     // Create animations
                     const screenWidth = window.innerWidth;
                     const step = screenWidth / 10;
+                    const duration = Math.random() * 10 + 10;  // Duration between 10-20 seconds
                     for (let i = 0; i < 10; i++) {
                         const x = i * step + (step / 2);
                         const y = -100;
-                        const duration = Math.random() * 10 + 10;  // Duration between 10-20 seconds
-                        createCat(x, y, duration);
-                        createHeart(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createFlower(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createSparkle(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createBalloon(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createStar(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createLeaf(x + Math.random() * 50, y + Math.random() * 50, duration);
+                        setTimeout(() => createHeart(x, y, duration), i * 2000);
+                        setTimeout(() => createCat(x, y, duration), i * 2000 + 2000);
+                        setTimeout(() => createFlower(x, y, duration), i * 2000 + 4000);
+                        setTimeout(() => createSparkle(x, y, duration), i * 2000 + 6000);
+                        setTimeout(() => createBalloon(x, y, duration), i * 2000 + 8000);
+                        setTimeout(() => createStar(x, y, duration), i * 2000 + 10000);
+                        setTimeout(() => createLeaf(x, y, duration), i * 2000 + 12000);
                     }
 
                     // Hide current question
