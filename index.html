@@ -186,7 +186,7 @@
         }
 
         function showRetryMessage(questionNum) {
-            const retryMessage = document.getElementById(retryMessage${questionNum});
+            const retryMessage = document.getElementById(`retryMessage${questionNum}`);
             retryMessage.style.display = 'block';
             setTimeout(() => {
                 retryMessage.style.display = 'none';
@@ -207,7 +207,7 @@
                     }
 
                     // Hide current question
-                    const currentQuestionEl = document.getElementById(questionNum === 0 ? 'test-question' : question${questionNum});
+                    const currentQuestionEl = document.getElementById(questionNum === 0 ? 'test-question' : `question${questionNum}`);
                     currentQuestionEl.classList.remove('visible');
                     
                     // Show next question or final message
@@ -216,7 +216,7 @@
                             document.getElementById('question1').classList.add('visible');
                             currentQuestion = 1;
                         } else if (questionNum < 3) {
-                            document.getElementById(question${questionNum + 1}).classList.add('visible');
+                            document.getElementById(`question${questionNum + 1}`).classList.add('visible');
                             currentQuestion++;
                         } else {
                             document.getElementById('finalMessage').style.display = 'block';
