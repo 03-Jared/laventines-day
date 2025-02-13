@@ -63,7 +63,7 @@
             display: none;
         }
 
-        .heart, .flower, .cat-emoji, .sparkle {
+        .heart, .flower, .cat-emoji, .sparkle, .balloon, .star, .leaf {
             position: fixed;
             font-size: 40px;
             pointer-events: none;
@@ -82,6 +82,21 @@
 
         .sparkle {
             color: #ffd700;
+        }
+
+        .balloon {
+            color: #ff69b4;
+            animation: float-up 3s forwards;
+        }
+
+        .star {
+            color: #ffd700;
+            animation: rotate 2s infinite;
+        }
+
+        .leaf {
+            color: #228B22;
+            animation: fall 4s infinite;
         }
 
         .retry-message {
@@ -105,10 +120,14 @@
             100% { transform: translateY(-100px); opacity: 0; }
         }
 
-        @keyframes jump-up {
-            0% { transform: translateY(100vh) scale(0.5); }
-            50% { transform: translateY(-20vh) scale(1.2); }
-            100% { transform: translateY(-50vh) scale(1); opacity: 0; }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -202,6 +221,36 @@
             setTimeout(() => sparkle.remove(), 1500);
         }
 
+        function createBalloon(x, y) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.innerHTML = '🎈';
+            balloon.style.left = x + 'px';
+            balloon.style.top = y + 'px';
+            document.body.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 3000);
+        }
+
+        function createStar(x, y) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.innerHTML = '⭐';
+            star.style.left = x + 'px';
+            star.style.top = y + 'px';
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 2000);
+        }
+
+        function createLeaf(x, y) {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.innerHTML = '🍃';
+            leaf.style.left = x + 'px';
+            leaf.style.top = y + 'px';
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 4000);
+        }
+
         function showRetryMessage(questionNum) {
             const retryMessage = document.getElementById(`retryMessage${questionNum}`);
             retryMessage.style.display = 'block';
@@ -213,7 +262,7 @@
         function answer(questionNum, isYes) {
             try {
                 if (isYes) {
-                    // Create jumping cat, hearts, flowers, and sparkles
+                    // Create animations
                     const corners = [
                         { x: 0, y: 0 },
                         { x: window.innerWidth - 100, y: 0 },
@@ -227,6 +276,9 @@
                                 createHeart(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
                                 createFlower(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
                                 createSparkle(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
+                                createBalloon(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
+                                createStar(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
+                                createLeaf(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
                             });
                         }, i * 200);
                     }
