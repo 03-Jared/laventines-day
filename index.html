@@ -198,7 +198,7 @@
             flower.style.top = y + 'px';
             flower.style.animationDuration = duration + 's';
             document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), duration * 1000);
+            setTimeout(() => flower remove(), duration * 1000);
         }
 
         function createSparkle(x, y, duration) {
@@ -220,7 +220,7 @@
             balloon.style.top = y + 'px';
             balloon.style.animationDuration = duration + 's';
             document.body.appendChild(balloon);
-            setTimeout(() => balloon.remove(), duration * 1000);
+            setTimeout(() => balloon remove(), duration * 1000);
         }
 
         function createStar(x, y, duration) {
@@ -264,12 +264,12 @@
                         const x = i * step + (step / 2);
                         const y = -100;
                         setTimeout(() => createHeart(x, y, duration), i * 3000);
-                        setTimeout(() => createCat(x, y, duration), i * 6000);
-                        setTimeout(() => createFlower(x, y, duration), i * 9000);
-                        setTimeout(() => createSparkle(x, y, duration), i * 12000);
-                        setTimeout(() => createBalloon(x, y, duration), i * 15000);
-                        setTimeout(() => createStar(x, y, duration), i * 18000);
-                        setTimeout(() => createLeaf(x, y, duration), i * 21000);
+                        setTimeout(() => createCat(x, y, duration), i * 3000 + 3000);
+                        setTimeout(() => createFlower(x, y, duration), i * 3000 + 6000);
+                        setTimeout(() => createSparkle(x, y, duration), i * 3000 + 9000);
+                        setTimeout(() => createBalloon(x, y, duration), i * 3000 + 12000);
+                        setTimeout(() => createStar(x, y, duration), i * 3000 + 15000);
+                        setTimeout(() => createLeaf(x, y, duration), i * 3000 + 18000);
                     }
 
                     // Hide current question
