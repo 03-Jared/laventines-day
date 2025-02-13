@@ -68,7 +68,7 @@
             font-size: 40px;
             pointer-events: none;
             z-index: 1000;
-            animation: float-around 10s infinite;
+            animation: fall 5s linear infinite;
         }
 
         .heart {
@@ -112,12 +112,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float-around {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(100vw, 0); }
-            50% { transform: translate(100vw, 100vh); }
-            75% { transform: translate(0, 100vh); }
-            100% { transform: translate(0, 0); }
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -178,7 +175,7 @@
             heart.style.left = x + 'px';
             heart.style.top = y + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 1500);
+            setTimeout(() => heart.remove(), 5000);
         }
 
         function createCat(x, y) {
@@ -188,7 +185,7 @@
             cat.style.left = x + 'px';
             cat.style.top = y + 'px';
             document.body.appendChild(cat);
-            setTimeout(() => cat.remove(), 1500);
+            setTimeout(() => cat.remove(), 5000);
         }
 
         function createFlower(x, y) {
@@ -198,7 +195,7 @@
             flower.style.left = x + 'px';
             flower.style.top = y + 'px';
             document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), 1500);
+            setTimeout(() => flower.remove(), 5000);
         }
 
         function createSparkle(x, y) {
@@ -208,7 +205,7 @@
             sparkle.style.left = x + 'px';
             sparkle.style.top = y + 'px';
             document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 1500);
+            setTimeout(() => sparkle.remove(), 5000);
         }
 
         function createBalloon(x, y) {
@@ -218,7 +215,7 @@
             balloon.style.left = x + 'px';
             balloon.style.top = y + 'px';
             document.body.appendChild(balloon);
-            setTimeout(() => balloon.remove(), 3000);
+            setTimeout(() => balloon.remove(), 5000);
         }
 
         function createStar(x, y) {
@@ -228,7 +225,7 @@
             star.style.left = x + 'px';
             star.style.top = y + 'px';
             document.body.appendChild(star);
-            setTimeout(() => star.remove(), 2000);
+            setTimeout(() => star.remove(), 5000);
         }
 
         function createLeaf(x, y) {
@@ -238,7 +235,7 @@
             leaf.style.left = x + 'px';
             leaf.style.top = y + 'px';
             document.body.appendChild(leaf);
-            setTimeout(() => leaf.remove(), 4000);
+            setTimeout(() => leaf.remove(), 5000);
         }
 
         function showRetryMessage(questionNum) {
@@ -253,9 +250,11 @@
             try {
                 if (isYes) {
                     // Create animations
+                    const screenWidth = window.innerWidth;
+                    const step = screenWidth / 10;
                     for (let i = 0; i < 10; i++) {
-                        const x = Math.random() * window.innerWidth;
-                        const y = Math.random() * window.innerHeight;
+                        const x = i * step;
+                        const y = -100;
                         createCat(x, y);
                         createHeart(x + Math.random() * 50, y + Math.random() * 50);
                         createFlower(x + Math.random() * 50, y + Math.random() * 50);
