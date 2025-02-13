@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For My Valentine 💝</title>
+    <title>For My Beautiful Valentine 💝</title>
     <style>
         body {
             margin: 0;
@@ -10,7 +10,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(45deg, #ffe6e6, #ffb3b3);
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             position: relative;
@@ -63,18 +63,25 @@
             display: none;
         }
 
-        .heart, .flower, .cat-emoji {
+        .heart, .flower, .cat-emoji, .sparkle {
             position: fixed;
             font-size: 40px;
-            color: #ff4d4d;
             pointer-events: none;
             z-index: 1000;
             animation: float-up 1.5s forwards;
         }
 
+        .heart {
+            color: #ff4d4d;
+        }
+
         .flower {
             font-size: 50px;
             color: #ffcccb;
+        }
+
+        .sparkle {
+            color: #ffd700;
         }
 
         .retry-message {
@@ -185,6 +192,16 @@
             setTimeout(() => flower.remove(), 1500);
         }
 
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1500);
+        }
+
         function showRetryMessage(questionNum) {
             const retryMessage = document.getElementById(`retryMessage${questionNum}`);
             retryMessage.style.display = 'block';
@@ -196,13 +213,14 @@
         function answer(questionNum, isYes) {
             try {
                 if (isYes) {
-                    // Create jumping cat, hearts, and flowers
+                    // Create jumping cat, hearts, flowers, and sparkles
                     const x = Math.random() * (window.innerWidth - 100);
                     createCat(x);
                     for (let i = 0; i < 3; i++) {
                         setTimeout(() => {
                             createHeart(x + Math.random() * 50, window.innerHeight - 200);
                             createFlower(x + Math.random() * 50, window.innerHeight - 200);
+                            createSparkle(x + Math.random() * 50, window.innerHeight - 200);
                         }, i * 200);
                     }
 
