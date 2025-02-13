@@ -172,12 +172,12 @@
             setTimeout(() => heart.remove(), 1500);
         }
 
-        function createCat(x) {
+        function createCat(x, y) {
             const cat = document.createElement('div');
             cat.className = 'cat-emoji';
             cat.innerHTML = '🐱';
             cat.style.left = x + 'px';
-            cat.style.bottom = '0';
+            cat.style.top = y + 'px';
             document.body.appendChild(cat);
             setTimeout(() => cat.remove(), 1500);
         }
@@ -214,13 +214,14 @@
             try {
                 if (isYes) {
                     // Create jumping cat, hearts, flowers, and sparkles
-                    const x = Math.random() * (window.innerWidth - 100);
-                    createCat(x);
                     for (let i = 0; i < 3; i++) {
                         setTimeout(() => {
-                            createHeart(x + Math.random() * 50, window.innerHeight - 200);
-                            createFlower(x + Math.random() * 50, window.innerHeight - 200);
-                            createSparkle(x + Math.random() * 50, window.innerHeight - 200);
+                            const x = Math.random() * window.innerWidth;
+                            const y = Math.random() * window.innerHeight;
+                            createCat(x, y);
+                            createHeart(x + Math.random() * 50, y + Math.random() * 50);
+                            createFlower(x + Math.random() * 50, y + Math.random() * 50);
+                            createSparkle(x + Math.random() * 50, y + Math.random() * 50);
                         }, i * 200);
                     }
 
