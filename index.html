@@ -31,7 +31,7 @@
             margin: 20px 0;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease;
+            transition: all 1s ease;
             display: none;
         }
 
@@ -68,7 +68,7 @@
             font-size: 40px;
             pointer-events: none;
             z-index: 1000;
-            animation: float-up 1.5s forwards;
+            animation: float-around 10s infinite;
         }
 
         .heart {
@@ -86,17 +86,14 @@
 
         .balloon {
             color: #ff69b4;
-            animation: float-up 3s forwards;
         }
 
         .star {
             color: #ffd700;
-            animation: rotate 2s infinite;
         }
 
         .leaf {
             color: #228B22;
-            animation: fall 4s infinite;
         }
 
         .retry-message {
@@ -115,19 +112,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float-up {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100px); opacity: 0; }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-100px); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
+        @keyframes float-around {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100vw, 0); }
+            50% { transform: translate(100vw, 100vh); }
+            75% { transform: translate(0, 100vh); }
+            100% { transform: translate(0, 0); }
         }
     </style>
 </head>
@@ -263,24 +253,16 @@
             try {
                 if (isYes) {
                     // Create animations
-                    const corners = [
-                        { x: 0, y: 0 },
-                        { x: window.innerWidth - 100, y: 0 },
-                        { x: 0, y: window.innerHeight - 100 },
-                        { x: window.innerWidth - 100, y: window.innerHeight - 100 }
-                    ];
-                    for (let i = 0; i < 3; i++) {
-                        setTimeout(() => {
-                            corners.forEach(corner => {
-                                createCat(corner.x, corner.y);
-                                createHeart(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                                createFlower(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                                createSparkle(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                                createBalloon(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                                createStar(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                                createLeaf(corner.x + Math.random() * 50, corner.y + Math.random() * 50);
-                            });
-                        }, i * 200);
+                    for (let i = 0; i < 10; i++) {
+                        const x = Math.random() * window.innerWidth;
+                        const y = Math.random() * window.innerHeight;
+                        createCat(x, y);
+                        createHeart(x + Math.random() * 50, y + Math.random() * 50);
+                        createFlower(x + Math.random() * 50, y + Math.random() * 50);
+                        createSparkle(x + Math.random() * 50, y + Math.random() * 50);
+                        createBalloon(x + Math.random() * 50, y + Math.random() * 50);
+                        createStar(x + Math.random() * 50, y + Math.random() * 50);
+                        createLeaf(x + Math.random() * 50, y + Math.random() * 50);
                     }
 
                     // Hide current question
@@ -298,7 +280,7 @@
                         } else {
                             document.getElementById('finalMessage').style.display = 'block';
                         }
-                    }, 300);
+                    }, 1000);
                 } else {
                     showRetryMessage(questionNum);
                 }
