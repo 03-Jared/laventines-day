@@ -1,300 +1,131 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>For My Beautiful Valentine 💝</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
+<script>
+    let currentQuestion = 0;
 
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            text-align: center;
-            z-index: 1;
-            max-width: 500px;
-            margin: 20px;
-        }
+    function createHeart(x, y, duration) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.animationDuration = duration + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
 
-        .question {
-            margin: 20px 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease;
-            display: none;
-        }
+    function createCat(x, y, duration) {
+        const cat = document.createElement('div');
+        cat.className = 'cat-emoji';
+        cat.innerHTML = '🐱';
+        cat.style.left = x + 'px';
+        cat.style.top = y + 'px';
+        cat.style.animationDuration = duration + 's';
+        document.body.appendChild(cat);
+        setTimeout(() => cat.remove(), duration * 1000);
+    }
 
-        .question.visible {
-            opacity: 1;
-            transform: translateY(0);
-            display: block;
-        }
+    function createFlower(x, y, duration) {
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.innerHTML = '🌸';
+        flower.style.left = x + 'px';
+        flower.style.top = y + 'px';
+        flower.style.animationDuration = duration + 's';
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), duration * 1000);
+    }
 
-        button {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    function createSparkle(x, y, duration) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.innerHTML = '✨';
+        sparkle.style.left = x + 'px';
+        sparkle.style.top = y + 'px';
+        sparkle.style.animationDuration = duration + 's';
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), duration * 1000);
+    }
 
-        button:hover {
-            transform: scale(1.1);
-        }
+    function createBalloon(x, y, duration) {
+        const balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        balloon.innerHTML = '🎈';
+        balloon.style.left = x + 'px';
+        balloon.style.top = y + 'px';
+        balloon.style.animationDuration = duration + 's';
+        document.body.appendChild(balloon);
+        setTimeout(() => balloon.remove(), duration * 1000);
+    }
 
-        .final-message {
-            font-size: 24px;
-            color: #ff4d4d;
-            margin-top: 20px;
-            display: none;
-        }
+    function createStar(x, y, duration) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.innerHTML = '⭐';
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.animationDuration = duration + 's';
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), duration * 1000);
+    }
 
-        .heart, .flower, .cat-emoji, .sparkle, .balloon, .star, .leaf {
-            position: fixed;
-            font-size: 40px;
-            pointer-events: none;
-            z-index: 1000;
-            animation: fall linear infinite;
-        }
+    function createLeaf(x, y, duration) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.innerHTML = '🍃';
+        leaf.style.left = x + 'px';
+        leaf.style.top = y + 'px';
+        leaf.style.animationDuration = duration + 's';
+        document.body.appendChild(leaf);
+        setTimeout(() => leaf.remove(), duration * 1000);
+    }
 
-        .heart {
-            color: #ff4d4d;
-        }
+    function showRetryMessage(questionNum) {
+        const retryMessage = document.getElementById(`retryMessage${questionNum}`);
+        retryMessage.style.display = 'block';
+        setTimeout(() => {
+            retryMessage.style.display = 'none';
+        }, 2000);
+    }
 
-        .flower {
-            font-size: 50px;
-            color: #ffcccb;
-        }
-
-        .sparkle {
-            color: #ffd700;
-        }
-
-        .balloon {
-            color: #ff69b4;
-        }
-
-        .star {
-            color: #ffd700;
-        }
-
-        .leaf {
-            color: #228B22;
-        }
-
-        .retry-message {
-            color: #ff4d4d;
-            font-size: 20px;
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: rgba(255, 192, 203, 0.2);
-            display: none;
-            animation: fade-in 0.3s ease-in;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-100px); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>My Beautiful Valentine 💖</h1>
-        
-        <div id="test-question" class="question visible">
-            <h3>Let's try a test question! Do you like cats? 🐱</h3>
-            <p>(This will show you what happens when you click Yes or No)</p>
-            <button onclick="answer(0, true)">Yes!</button>
-            <button onclick="answer(0, false)">No</button>
-            <div id="retryMessage0" class="retry-message">
-                Roxy doesn't like that, try again! 😿
-            </div>
-        </div>
-
-        <div id="question1" class="question">
-            <h3>Are you still coming tomorrow? 🥰</h3>
-            <button onclick="answer(1, true)">Yes!</button>
-            <button onclick="answer(1, false)">No</button>
-            <div id="retryMessage1" class="retry-message">
-                Roxy doesn't like that, try again! 😿
-            </div>
-        </div>
-
-        <div id="question2" class="question">
-            <h3>Are you excited? 🎉</h3>
-            <button onclick="answer(2, true)">Yes!</button>
-            <button onclick="answer(2, false)">No</button>
-            <div id="retryMessage2" class="retry-message">
-                Roxy doesn't like that, try again! 😿
-            </div>
-        </div>
-
-        <div id="question3" class="question">
-            <h3>Do you love me like I love you? 💝</h3>
-            <button onclick="answer(3, true)">Yes!</button>
-            <button onclick="answer(3, false)">No</button>
-            <div id="retryMessage3" class="retry-message">
-                Roxy doesn't like that, try again! 😿
-            </div>
-        </div>
-
-        <div id="finalMessage" class="final-message">
-            <h2>See you tomorrow Snuggles! 💕</h2>
-            <p>See you between 9-10AM</p>
-        </div>
-    </div>
-
-    <script>
-        let currentQuestion = 0;
-
-        function createHeart(x, y, duration) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤';
-            heart.style.left = x + 'px';
-            heart.style.top = y + 'px';
-            heart.style.animationDuration = duration + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), duration * 1000);
-        }
-
-        function createCat(x, y, duration) {
-            const cat = document.createElement('div');
-            cat.className = 'cat-emoji';
-            cat.innerHTML = '🐱';
-            cat.style.left = x + 'px';
-            cat.style.top = y + 'px';
-            cat.style.animationDuration = duration + 's';
-            document.body.appendChild(cat);
-            setTimeout(() => cat.remove(), duration * 1000);
-        }
-
-        function createFlower(x, y, duration) {
-            const flower = document.createElement('div');
-            flower.className = 'flower';
-            flower.innerHTML = '🌸';
-            flower.style.left = x + 'px';
-            flower.style.top = y + 'px';
-            flower.style.animationDuration = duration + 's';
-            document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), duration * 1000);
-        }
-
-        function createSparkle(x, y, duration) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.innerHTML = '✨';
-            sparkle.style.left = x + 'px';
-            sparkle.style.top = y + 'px';
-            sparkle.style.animationDuration = duration + 's';
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), duration * 1000);
-        }
-
-        function createBalloon(x, y, duration) {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.innerHTML = '🎈';
-            balloon.style.left = x + 'px';
-            balloon.style.top = y + 'px';
-            balloon.style.animationDuration = duration + 's';
-            document.body.appendChild(balloon);
-            setTimeout(() => balloon.remove(), duration * 1000);
-        }
-
-        function createStar(x, y, duration) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.innerHTML = '⭐';
-            star.style.left = x + 'px';
-            star.style.top = y + 'px';
-            star.style.animationDuration = duration + 's';
-            document.body.appendChild(star);
-            setTimeout(() => star.remove(), duration * 1000);
-        }
-
-        function createLeaf(x, y, duration) {
-            const leaf = document.createElement('div');
-            leaf.className = 'leaf';
-            leaf.innerHTML = '🍃';
-            leaf.style.left = x + 'px';
-            leaf.style.top = y + 'px';
-            leaf.style.animationDuration = duration + 's';
-            document.body.appendChild(leaf);
-            setTimeout(() => leaf.remove(), duration * 1000);
-        }
-
-        function showRetryMessage(questionNum) {
-            const retryMessage = document.getElementById(`retryMessage${questionNum}`);
-            retryMessage.style.display = 'block';
-            setTimeout(() => {
-                retryMessage.style.display = 'none';
-            }, 2000);
-        }
-
-        function answer(questionNum, isYes) {
-            try {
-                if (isYes) {
-                    // Create animations
-                    const screenWidth = window.innerWidth;
-                    const step = screenWidth / 10;
-                    for (let i = 0; i < 10; i++) {
-                        const x = i * step + (step / 2);
-                        const y = -100;
-                        const duration = Math.random() * 10 + 10;  // Duration between 10-20 seconds
-                        createCat(x, y, duration);
-                        createHeart(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createFlower(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createSparkle(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createBalloon(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createStar(x + Math.random() * 50, y + Math.random() * 50, duration);
-                        createLeaf(x + Math.random() * 50, y + Math.random() * 50, duration);
-                    }
-
-                    // Hide current question
-                    const currentQuestionEl = document.getElementById(questionNum === 0 ? 'test-question' : `question${questionNum}`);
-                    currentQuestionEl.classList.remove('visible');
-                    
-                    // Show next question or final message
-                    setTimeout(() => {
-                        if (questionNum === 0) {
-                            document.getElementById('question1').classList.add('visible');
-                            currentQuestion = 1;
-                        } else if (questionNum < 3) {
-                            document.getElementById(`question${questionNum + 1}`).classList.add('visible');
-                            currentQuestion++;
-                        } else {
-                            document.getElementById('finalMessage').style.display = 'block';
-                        }
-                    }, 1000);
-                } else {
-                    showRetryMessage(questionNum);
+    function answer(questionNum, isYes) {
+        try {
+            if (isYes) {
+                // Create animations
+                const screenWidth = window.innerWidth;
+                const step = screenWidth / 10;
+                const duration = Math.random() * 10 + 10;  // Duration between 10-20 seconds
+                for (let i = 0; i < 10; i++) {
+                    const x = i * step + (step / 2);
+                    const y = -100;
+                    setTimeout(() => createHeart(x, y, duration), i * 3000);
+                    setTimeout(() => createCat(x, y, duration), i * 3000 + 3000);
+                    setTimeout(() => createFlower(x, y, duration), i * 3000 + 6000);
+                    setTimeout(() => createSparkle(x, y, duration), i * 3000 + 9000);
+                    setTimeout(() => createBalloon(x, y, duration), i * 3000 + 12000);
+                    setTimeout(() => createStar(x, y, duration), i * 3000 + 15000);
+                    setTimeout(() => createLeaf(x, y, duration), i * 3000 + 18000);
                 }
-            } catch (error) {
-                console.error('Error in answer function:', error);
+
+                // Hide current question
+                const currentQuestionEl = document.getElementById(questionNum === 0 ? 'test-question' : `question${questionNum}`);
+                currentQuestionEl.classList.remove('visible');
+                
+                // Show next question or final message
+                setTimeout(() => {
+                    if (questionNum === 0) {
+                        document.getElementById('question1').classList.add('visible');
+                        currentQuestion = 1;
+                    } else if (questionNum < 3) {
+                        document.getElementById(`question${questionNum + 1}`).classList.add('visible');
+                        currentQuestion++;
+                    } else {
+                        document.getElementById('finalMessage').style.display = 'block';
+                    }
+                }, 1000);
+            } else {
+                showRetryMessage(questionNum);
             }
+        } catch (error) {
+            console.error('Error in answer function:', error);
         }
-    </script>
-</body>
-</html>
+    }
+</script>
