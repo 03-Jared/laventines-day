@@ -242,7 +242,7 @@
             leaf.style.top = y + 'px';
             leaf.style.animationDuration = duration + 's';
             document.body.appendChild(leaf);
-            setTimeout(() => leaf remove(), duration * 1000);
+            setTimeout(() => leaf.remove(), duration * 1000);
         }
 
         function showRetryMessage(questionNum) {
