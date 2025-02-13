@@ -63,39 +63,6 @@
             display: none;
         }
 
-        .heart, .flower, .cat-emoji, .sparkle, .balloon, .star, .leaf {
-            position: fixed;
-            font-size: 40px;
-            pointer-events: none;
-            z-index: 1000;
-            animation: fall linear infinite;
-        }
-
-        .heart {
-            color: #ff4d4d;
-        }
-
-        .flower {
-            font-size: 50px;
-            color: #ffcccb;
-        }
-
-        .sparkle {
-            color: #ffd700;
-        }
-
-        .balloon {
-            color: #ff69b4;
-        }
-
-        .star {
-            color: #ffd700;
-        }
-
-        .leaf {
-            color: #228B22;
-        }
-
         .retry-message {
             color: #ff4d4d;
             font-size: 20px;
@@ -110,11 +77,6 @@
         @keyframes fade-in {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-100px); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -168,83 +130,6 @@
     <script>
         let currentQuestion = 0;
 
-        function createHeart(x, y, duration) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤';
-            heart.style.left = x + 'px';
-            heart.style.top = y + 'px';
-            heart.style.animationDuration = duration + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), duration * 1000);
-        }
-
-        function createFlower(x, y, duration) {
-            const flower = document.createElement('div');
-            flower.className = 'flower';
-            flower.innerHTML = '🌸';
-            flower.style.left = x + 'px';
-            flower.style.top = y + 'px';
-            flower.style.animationDuration = duration + 's';
-            document.body.appendChild(flower);
-            setTimeout(() => flower remove(), duration * 1000);
-        }
-
-        function createCat(x, y, duration) {
-            const cat = document.createElement('div');
-            cat.className = 'cat-emoji';
-            cat.innerHTML = '🐱';
-            cat.style.left = x + 'px';
-            cat.style.top = y + 'px';
-            cat.style.animationDuration = duration + 's';
-            document.body.appendChild(cat);
-            setTimeout(() => cat remove(), duration * 1000);
-        }
-
-        function createSparkle(x, y, duration) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.innerHTML = '✨';
-            sparkle.style.left = x + 'px';
-            sparkle.style.top = y + 'px';
-            sparkle.style.animationDuration = duration + 's';
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle remove(), duration * 1000);
-        }
-
-        function createBalloon(x, y, duration) {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.innerHTML = '🎈';
-            balloon.style.left = x + 'px';
-            balloon.style.top = y + 'px';
-            balloon.style.animationDuration = duration + 's';
-            document.body.appendChild(balloon);
-            setTimeout(() => balloon remove(), duration * 1000);
-        }
-
-        function createStar(x, y, duration) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.innerHTML = '⭐';
-            star.style.left = x + 'px';
-            star.style.top = y + 'px';
-            star.style.animationDuration = duration + 's';
-            document.body.appendChild(star);
-            setTimeout(() => star remove(), duration * 1000);
-        }
-
-        function createLeaf(x, y, duration) {
-            const leaf = document.createElement('div');
-            leaf.className = 'leaf';
-            leaf.innerHTML = '🍃';
-            leaf.style.left = x + 'px';
-            leaf.style.top = y + 'px';
-            leaf.style.animationDuration = duration + 's';
-            document.body.appendChild(leaf);
-            setTimeout(() => leaf remove(), duration * 1000);
-        }
-
         function showRetryMessage(questionNum) {
             const retryMessage = document.getElementById(`retryMessage${questionNum}`);
             retryMessage.style.display = 'block';
@@ -256,24 +141,9 @@
         function answer(questionNum, isYes) {
             try {
                 if (isYes) {
-                    const screenWidth = window.innerWidth;
-                    const step = screenWidth / 10;
-                    const duration = Math.random() * 10 + 10;  // Duration between 10-20 seconds
-                    for (let i = 0; i < 10; i++) {
-                        const x = i * step + (step / 2);
-                        const y = -100;
-                        setTimeout(() => createHeart(x, y, duration), i * 4000);
-                        setTimeout(() => createFlower(x, y, duration), i * 4000 + 4000);
-                        setTimeout(() => createCat(x, y, duration), i * 4000 + 8000);
-                        setTimeout(() => createSparkle(x, y, duration), i * 4000 + 12000);
-                        setTimeout(() => createBalloon(x, y, duration), i * 4000 + 16000);
-                        setTimeout(() => createStar(x, y, duration), i * 4000 + 20000);
-                        setTimeout(() => createLeaf(x, y, duration), i * 4000 + 24000);
-                    }
-
                     const currentQuestionEl = document.getElementById(questionNum === 0 ? 'test-question' : `question${questionNum}`);
                     currentQuestionEl.classList.remove('visible');
-                    
+
                     setTimeout(() => {
                         if (questionNum === 0) {
                             document.getElementById('question1').classList.add('visible');
